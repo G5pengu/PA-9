@@ -1,18 +1,18 @@
 # PA-9
-#Team Information
-Team Member 1: Sam Palatnikov – Lab Section 5
-Team Member 2: [Full Name] – Lab Section [#]
-Team Member 3: [Full Name] – Lab Section [#]
-Team Member 4: [Full Name] – Lab Section [#]
+## Team Information
+* Team Member 1: Sam Palatnikov – Lab Section 5 <br>
+* Team Member 2: [Full Name] – Lab Section [#] <br>
+* Team Member 3: [Full Name] – Lab Section [#] <br>
+* Team Member 4: [Full Name] – Lab Section [#] <br>
 
-##[Name]
-#Project Description
+## [Name]
+### Project Description
 
-#Instruction
+### Instruction
 
-#Video Demonstration
+### Video Demonstration
 Link: [Paste YouTube or video link here]
 
-#AI Usage Disclosure
+#### AI Usage Disclosure
 
-#Notes
+#### Notes
