@@ -1,0 +1,44 @@
+﻿  Button.cpp
+C:\Users\nicho\CptS 122\Test Folder\TEST_SFM\Test\Test\Button.cpp(6,69): warning C4244: 'argument': conversion from 'double' to 'unsigned int', possible loss of data
+  main.cpp
+sfml-graphics-s-d.lib(Text.cpp.obj) : error LNK2001: unresolved external symbol hb_script_from_iso15924_tag
+sfml-graphics-s-d.lib(Text.cpp.obj) : error LNK2001: unresolved external symbol hb_font_destroy
+sfml-graphics-s-d.lib(Text.cpp.obj) : error LNK2001: unresolved external symbol hb_font_get_scale
+sfml-graphics-s-d.lib(Text.cpp.obj) : error LNK2001: unresolved external symbol hb_buffer_create
+sfml-graphics-s-d.lib(Text.cpp.obj) : error LNK2001: unresolved external symbol hb_buffer_destroy
+sfml-graphics-s-d.lib(Text.cpp.obj) : error LNK2001: unresolved external symbol hb_buffer_set_content_type
+sfml-graphics-s-d.lib(Text.cpp.obj) : error LNK2001: unresolved external symbol hb_buffer_set_direction
+sfml-graphics-s-d.lib(Text.cpp.obj) : error LNK2001: unresolved external symbol hb_buffer_get_direction
+sfml-graphics-s-d.lib(Text.cpp.obj) : error LNK2001: unresolved external symbol hb_buffer_set_script
+sfml-graphics-s-d.lib(Text.cpp.obj) : error LNK2001: unresolved external symbol hb_buffer_guess_segment_properties
+sfml-graphics-s-d.lib(Text.cpp.obj) : error LNK2001: unresolved external symbol hb_buffer_set_cluster_level
+sfml-graphics-s-d.lib(Text.cpp.obj) : error LNK2001: unresolved external symbol hb_buffer_clear_contents
+sfml-graphics-s-d.lib(Text.cpp.obj) : error LNK2001: unresolved external symbol hb_buffer_pre_allocate
+sfml-graphics-s-d.lib(Text.cpp.obj) : error LNK2001: unresolved external symbol hb_buffer_add
+sfml-graphics-s-d.lib(Text.cpp.obj) : error LNK2001: unresolved external symbol hb_buffer_get_length
+sfml-graphics-s-d.lib(Text.cpp.obj) : error LNK2001: unresolved external symbol hb_buffer_get_glyph_infos
+sfml-graphics-s-d.lib(Text.cpp.obj) : error LNK2001: unresolved external symbol hb_buffer_get_glyph_positions
+sfml-graphics-s-d.lib(Text.cpp.obj) : error LNK2001: unresolved external symbol hb_shape
+sfml-graphics-s-d.lib(Text.cpp.obj) : error LNK2001: unresolved external symbol hb_ft_font_create
+sfml-graphics-s-d.lib(Text.cpp.obj) : error LNK2001: unresolved external symbol hb_ft_font_set_load_flags
+sfml-graphics-s-d.lib(Text.cpp.obj) : error LNK2001: unresolved external symbol hb_ft_font_set_funcs
+sfml-graphics-s-d.lib(Font.cpp.obj) : error LNK2001: unresolved external symbol FT_Init_FreeType
+sfml-graphics-s-d.lib(Font.cpp.obj) : error LNK2001: unresolved external symbol FT_Done_FreeType
+sfml-graphics-s-d.lib(Font.cpp.obj) : error LNK2001: unresolved external symbol FT_Open_Face
+sfml-graphics-s-d.lib(Font.cpp.obj) : error LNK2001: unresolved external symbol FT_Done_Face
+sfml-graphics-s-d.lib(Font.cpp.obj) : error LNK2001: unresolved external symbol FT_Set_Pixel_Sizes
+sfml-graphics-s-d.lib(Font.cpp.obj) : error LNK2001: unresolved external symbol FT_Load_Glyph
+sfml-graphics-s-d.lib(Font.cpp.obj) : error LNK2001: unresolved external symbol FT_Get_Kerning
+sfml-graphics-s-d.lib(Font.cpp.obj) : error LNK2001: unresolved external symbol FT_Select_Charmap
+sfml-graphics-s-d.lib(Font.cpp.obj) : error LNK2001: unresolved external symbol FT_Get_Char_Index
+sfml-graphics-s-d.lib(Font.cpp.obj) : error LNK2001: unresolved external symbol FT_MulFix
+sfml-graphics-s-d.lib(Font.cpp.obj) : error LNK2001: unresolved external symbol FT_Get_Glyph
+sfml-graphics-s-d.lib(Font.cpp.obj) : error LNK2001: unresolved external symbol FT_Glyph_To_Bitmap
+sfml-graphics-s-d.lib(Font.cpp.obj) : error LNK2001: unresolved external symbol FT_Done_Glyph
+sfml-graphics-s-d.lib(Font.cpp.obj) : error LNK2001: unresolved external symbol FT_Outline_Embolden
+sfml-graphics-s-d.lib(Font.cpp.obj) : error LNK2001: unresolved external symbol FT_Bitmap_Embolden
+sfml-graphics-s-d.lib(Font.cpp.obj) : error LNK2001: unresolved external symbol FT_Stroker_New
+sfml-graphics-s-d.lib(Font.cpp.obj) : error LNK2001: unresolved external symbol FT_Stroker_Set
+sfml-graphics-s-d.lib(Font.cpp.obj) : error LNK2001: unresolved external symbol FT_Stroker_Done
+sfml-graphics-s-d.lib(Font.cpp.obj) : error LNK2001: unresolved external symbol FT_Glyph_Stroke
+C:\Users\nicho\CptS 122\Test Folder\TEST_SFM\Test\x64\Release\Test.exe : fatal error LNK1120: 40 unresolved externals

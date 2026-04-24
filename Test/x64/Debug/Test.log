@@ -1,0 +1,5 @@
+﻿  Button.cpp
+C:\Users\nicho\CptS 122\Test Folder\TEST_SFM\Test\Test\Button.cpp(6,69): warning C4244: 'argument': conversion from 'float' to 'unsigned int', possible loss of data
+  main.cpp
+  Generating Code...
+  Test.vcxproj -> C:\Users\nicho\CptS 122\Test Folder\TEST_SFM\Test\x64\Debug\Test.exe
