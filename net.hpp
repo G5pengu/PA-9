@@ -33,6 +33,7 @@ public:
 	//gets and sets the leader board
 	Leader getLeader(int pos);
 	void setLeader(int pos, Leader newLeader);
+	void addLeader(Leader newLeader);
 
 	void netTest();
 	void cat();//curiosity killed the cat

@@ -40,14 +40,17 @@ void Network::listen()
 
 	if (sock.receive(pack, sender, receiverport) == sf::Socket::Status::Done)
 	{
+		Leader lead[10];
 		//unpacks the Leader board  from the UDP package
 		for (int i = 0; i < 10; i++)
 		{
 			
-			pack >> leaderboard[i].user >> leaderboard[i].score;;
+			pack >> lead[i].user >> lead[i].score;;
 			
 		}
+		merge_boards(lead);
 	}
+	
 	
 }
 
@@ -70,7 +73,6 @@ void Network::load(string Boardfile)
 		leaderboard[i].score = stof(score);
 		i++;
 	}
-	save();
 }
 void Network::save() 
 {
@@ -84,7 +86,7 @@ void Network::save()
 	}
 }
 
-//gets and sets the leader board
+//gets and sets the leader's in Leaderboard
 Leader Network::getLeader(int pos)
 {
 	return leaderboard[pos];
@@ -96,6 +98,17 @@ void Network::setLeader(int pos, Leader newLeader)
 		leaderboard[i]= leaderboard[i-1];
 	}
 	leaderboard[pos] = newLeader;
+}
+void Network::addLeader(Leader newLeader)
+{
+	for ( int i = 0; i < 10; i++)
+	{
+		if(newLeader.score<leaderboard[i].score)
+		{
+			setLeader(i, newLeader);
+			return;
+		}
+	}
 }
 
 //Debug print function, display leaderboard will be in Menu class
@@ -112,6 +125,10 @@ void Network::merge_boards(Leader board[10])
 	{
 		for(int u = 0; u < 10; u++)
 		{
+			if (board[i].user == leaderboard[u].user && board[i].score == leaderboard[u].score)
+			{
+				break;
+			}
 			if (board[i].score>leaderboard[u].score)
 			{
 				setLeader(u, board[i]);
@@ -119,6 +136,7 @@ void Network::merge_boards(Leader board[10])
 			}
 		}
 	}
+	save();
 }
 
 //Test cases
@@ -126,16 +144,20 @@ void Network::netTest()
 {
 
 }
-void Network::cat()// pure debug test case
+void Network::cat()// pure debug test case, UwU
 {
-	load("Test.csv");
-	ip = "127.0.0.1";
+	load("LeaderBoard.csv");
+	//ip = "127.0.0.1"; for loop back 
+	Network m; 
+	m.load("Test.csv");
 
 	cout << "strating listener thread\n";
 	thread listener(&Network::listen, this);
+
 	sleep(seconds(1));
+
 	cout << "starting sender tread";
-	thread sender(&Network::send, this);
+	thread sender(&Network::send, m);
 
 	listener.join();
 	sender.join();
