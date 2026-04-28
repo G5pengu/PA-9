@@ -11,7 +11,7 @@ Menu::~Menu()
 void Menu::display_leaders()
 {
     RenderWindow window(sf::VideoMode({ 1920,1080 }), "SFML TEST");
-    Vector2f btnSize(500, 120);
+    Vector2f btnSize(140, 40);
 
     RectangleShape exitBtn(btnSize);
 
@@ -29,24 +29,21 @@ void Menu::display_leaders()
     float centerX = 1080 / 2;
 
     // Bottom corner button (Exit)
-    exitBtn.setPosition(Vector2f(20, 800));
-    exitBtn.setFillColor(Color::Red);
+    exitBtn.setPosition(Vector2f(250, 820));
+    exitBtn.setFillColor(Color::Green);
 
     // Text for button
-    Text exitText(font, "Exit", 50);
-    exitText.setPosition(Vector2f(80, 800));
+    Text exitText(font, "Exit", 20);
+    exitText.setFillColor(Color::Black);
 
-    RectangleShape backBtn(Vector2f(300, 120));
-    backBtn.setPosition(Vector2f(50, 800));
-    backBtn.setFillColor(Color(100, 100, 100));
 
     Text backText(font,"Back", 40);
 
     // center text inside button
-    FloatRect t = backText.getLocalBounds();
-    backText.setPosition(
-        Vector2f(backBtn.getPosition().x + backBtn.getSize().x / 2,
-            backBtn.getPosition().y + backBtn.getSize().y / 2));
+
+    exitText.setPosition(
+        Vector2f(exitBtn.getPosition().x + exitBtn.getSize().x/3,
+            exitBtn.getPosition().y + exitBtn.getSize().y / 5));
 
 
     // ------------------------------
@@ -57,7 +54,7 @@ void Menu::display_leaders()
     for (int i = 0; i < 10; i++)
     {
         Leader leader = getLeader(i);
-        string line = to_string(i)+": " + leader.user + " : " + to_string(leader.score);
+        string line = to_string(i+1)+": " + leader.user + " : " + to_string(leader.score);
 
         Text text(font, line, 30);
         text.setPosition(Vector2f(900, 300 + i * 60)); // spaced vertically
@@ -77,7 +74,7 @@ void Menu::display_leaders()
             {
                 Vector2f mousePos = (Vector2f)Mouse::getPosition(window);
 
-                if (backBtn.getGlobalBounds().contains(mousePos))
+                if (exitBtn.getGlobalBounds().contains(mousePos))
                 {
                     cout << "clicked\n";
                     window.close(); // go back to main menu
@@ -88,7 +85,7 @@ void Menu::display_leaders()
         window.clear(Color::Black);
         window.draw(Loutline);
         window.draw(title);
-
+        //ai 
         for (auto& e : entries)
             window.draw(e);
 
