@@ -15,5 +15,7 @@ public:
 	void menu();
 	void canvas_test();
 
+	Font font;
+
 };
 

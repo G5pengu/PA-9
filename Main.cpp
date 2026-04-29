@@ -9,8 +9,8 @@ int main() {
 	/*Network n;
 	n.cat();*/
 	Menu m; 
-	m.cat();
-	m.display_leaders();
+	//m.cat();
+	m.menu();
 	//m.canvas_test();
 	
 

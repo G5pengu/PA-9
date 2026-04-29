@@ -2,6 +2,7 @@
 
 Menu::Menu()
 {
+    font.openFromFile("comic.ttf");
 }
 
 Menu::~Menu()
@@ -10,13 +11,11 @@ Menu::~Menu()
 
 void Menu::display_leaders()
 {
+    cat();
     RenderWindow window(sf::VideoMode({ 1920,1080 }), "SFML TEST");
     Vector2f btnSize(140, 40);
 
     RectangleShape exitBtn(btnSize);
-
-    Font font;
-    font.openFromFile("calibri.ttf");
 
     Text title(font, "Leaderboard",  80);
     title.setPosition(Vector2f(720, 100));
@@ -54,10 +53,10 @@ void Menu::display_leaders()
     for (int i = 0; i < 10; i++)
     {
         Leader leader = getLeader(i);
-        string line = to_string(i+1)+": " + leader.user + " : " + to_string(leader.score);
+        string line = to_string(i+1)+": " + leader.user + " : " + to_string(leader.score).substr(0,5) + " pts";
 
         Text text(font, line, 30);
-        text.setPosition(Vector2f(900, 300 + i * 60)); // spaced vertically
+        text.setPosition(Vector2f(800, 300 + i * 60)); // spaced vertically
 
         entries.push_back(text);
     }
@@ -78,6 +77,7 @@ void Menu::display_leaders()
                 {
                     cout << "clicked\n";
                     window.close(); // go back to main menu
+                    menu();
                 }
             }
         }
@@ -101,9 +101,6 @@ void Menu::menu()
     int width = 1920;
     int height = 1080;
 	RenderWindow window(sf::VideoMode({ 1920,1080 }), "SFML TEST");
-
-    Font font;
-    font.openFromFile("calibri.ttf");
     
 
     // Buttons
@@ -153,11 +150,13 @@ void Menu::menu()
                     if (leaderBtn.getGlobalBounds().contains((Vector2f)mousePos))
                     {
                         cout << "clicked leader\n";
+                        window.close();
                         display_leaders();
                     }
                     if (exitBtn.getGlobalBounds().contains((Vector2f)mousePos))
                     {
                         cout << "clicked\n";
+                        window.close();
                     }
                         
                 }
@@ -236,32 +235,3 @@ void Menu::canvas_test()
         window.display();
     }
 }
-////create texture / object
-        //Texture dante;
-        ////make sure it isnt fucking stupid
-        //if (!dante.loadFromFile("assets/dante.png"))
-        //	std::cout << "Failed to load test image!\n";
-
-        ////create object to render it
-        //Sprite spriteTest(dante);
-
-        ////scale said object so we have laws
-        //auto size = dante.getSize();
-        //spriteTest.setScale({
-        //	1920.f / size.x, //sfml doesnt accept direct scaling like JFrame does, this is how
-        //	400.f / size.y //size you want, divided by its original size !!x and y are flipped, x is virtical!!
-        //	});
-        ////set location of objcet
-        //spriteTest.setPosition({ 0,0 });
-
-        ////main window loop / frame clock
-        //while (window.isOpen()) {
-        //	while (const std::optional event = window.pollEvent()) {
-        //		if (event->is<Event::Closed>())
-        //			window.close();
-        //	}
-
-        //	window.clear();
-        //	window.draw(spriteTest);
-        //	window.display();
-        //}
