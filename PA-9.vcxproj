@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="Func\Body\Arrow.cpp" />
     <ClCompile Include="Func\Body\Button.cpp" />
+    <ClCompile Include="Func\Body\Game.cpp" />
     <ClCompile Include="Func\Body\main.cpp" />
     <ClCompile Include="Func\Body\Menu.cpp" />
     <ClCompile Include="Func\Body\net.cpp" />
@@ -30,6 +31,7 @@
   <ItemGroup>
     <ClInclude Include="Func\Header\Arrow.hpp" />
     <ClInclude Include="Func\Header\Button.hpp" />
+    <ClInclude Include="Func\Header\Game.hpp" />
     <ClInclude Include="Func\Header\Menu.hpp" />
     <ClInclude Include="Func\Header\net.hpp" />
     <ClInclude Include="Func\Header\NoteTimeCalc.hpp" />

@@ -2,9 +2,9 @@
 
 Menu::Menu()
 {
-    font.openFromFile("comic.ttf");
+    font.openFromFile("assets/comic.ttf"); 
 }
-
+ 
 Menu::~Menu()
 {}
 
@@ -144,7 +144,8 @@ void Menu::menu()
 
                     if (playBtn.getGlobalBounds().contains((Vector2f)mousePos))
                     {
-
+                        window.close();
+                        run();
                     }
                     if (leaderBtn.getGlobalBounds().contains((Vector2f)mousePos))
                     {

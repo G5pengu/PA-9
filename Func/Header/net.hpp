@@ -27,7 +27,7 @@ public:
 	void listen();
 
 	// loads and saves the leader board to a CSV
-	void load(string Boardfile = "LeaderBoard.Csv");
+	void load(string Boardfile = "assets/LeaderBoard.Csv");
 	void save();
 
 	//gets and sets the leader board

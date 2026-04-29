@@ -145,10 +145,10 @@ void Network::netTest()
 }
 void Network::cat()// pure debug test case, UwU
 {
-	load("LeaderBoard.csv");
+	load("assets/LeaderBoard.csv");
 	//ip = "127.0.0.1"; for loop back 
 	Network m;
-	m.load("Test.csv");
+	m.load("assets/Test.csv");
 
 	cout << "strating listener thread\n";
 	thread listener(&Network::listen, this);
