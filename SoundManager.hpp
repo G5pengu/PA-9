@@ -6,7 +6,7 @@
 SoundManager.hpp
 
 Author: Nicholas Horner
-Last Edited: 4/24/2026
+Last Edited: 4/28/2026
 CptS 122 Sec 4
 
 Sound Manager is essentially a dynamic vector array of soundbuffer and music classes
@@ -51,6 +51,8 @@ class SoundManager
 		int get_sound_num() const; // Return the number of sounds stored
 
 		int get_music_num() const; // Return number of music stored
+
+		sf::Music& get_music_stream(); // Return the music stream (for timing with the song loop)
 
 		void play_sound(const int& sound_index, const float& volume);
 		

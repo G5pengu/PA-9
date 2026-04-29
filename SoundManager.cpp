@@ -85,6 +85,11 @@ int SoundManager::get_music_num() const
 	return _MusicPathVector.size();
 }
 
+sf::Music& SoundManager::get_music_stream()
+{
+	return _musicStream;
+}
+
 
 // Volume is a range from 0 to 100, default is 50
 void SoundManager::play_sound(const int& sound_index, const float& volume)
