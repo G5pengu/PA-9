@@ -1,39 +1,57 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
+
+#include "Menu.hpp"
+
 using namespace sf;
 
-int main() {
+int main() 
+{
+
 	RenderWindow window(sf::VideoMode({ 1920,1080 }), "SFML TEST");
 
-	//create texture / object
-	Texture dante;
-	//make sure it isnt fucking stupid
-	if (!dante.loadFromFile("assets/dante.png"))
-		std::cout << "Failed to load test image!\n";
+	//Menu stuff - zac
+	Menu menu(1920, 1080);
 
-	//create object to render it
-	Sprite spriteTest(dante);
+	//originally I had a switch statement but then it didnt work and turns out in the 
+	//newer version of SFML switch statements were removed so I asked claude to make this while loop in propper
+	//3.0.2 version syntax (the change was to make button presses safer)
+    while (window.isOpen())
+    {
+        while (const std::optional<sf::Event> event = window.pollEvent())
+        {
+            if (event->is<sf::Event::Closed>())
+            {
+                window.close();
+            }
 
-	//scale said object so we have laws
-	auto size = dante.getSize();
-	spriteTest.setScale({
-		1920.f / size.x, //sfml doesnt accept direct scaling like JFrame does, this is how
-		400.f / size.y //size you want, divided by its original size !!x and y are flipped, x is virtical!!
-		});
-	//set location of objcet
-	spriteTest.setPosition({ 0,0 });
+            if (const auto* keyEvent = event->getIf<sf::Event::KeyReleased>())
+            {
+                if (keyEvent->code == sf::Keyboard::Key::Up)
+                {
+                    menu.moveUp();
+                }
+                if (keyEvent->code == sf::Keyboard::Key::Down)
+                {
+                    menu.moveDown();
+                }
+                if (keyEvent->code == sf::Keyboard::Key::Enter)
+                {
+                    if (menu.getSelectedItemIndex() == 0)
+                    {
+                        printf("Play button has been pressed");
+                    }
+                    if (menu.getSelectedItemIndex() == 1)
+                    {
+                        printf("Exit button has been pressed");
+                        window.close();
+                    }
+                }
+            }
+        }
 
-	//main window loop / frame clock
-	while (window.isOpen()) {
-		while (const std::optional event = window.pollEvent()) {
-			if (event->is<Event::Closed>())
-				window.close();
-		}
-
-		window.clear();
-		window.draw(spriteTest);
-		window.display();
-	}
-
-	//todo: inputs
+        window.clear(sf::Color::Black);
+        menu.draw(window);
+        window.display();
+    }
 }
