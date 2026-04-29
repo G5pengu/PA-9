@@ -5,9 +5,9 @@
 * Team Member 3: Zac Calvert – Lab Section 8 <br>
 * Team Member 4: [Full Name] – Lab Section [#] <br>
 
-## [Name]
+## Project Name: Butch's Cougar Jam
 ### Project Description
-A Rythum game based on Washington State University's mascot, Butch T. Cougar. In the game Butch needs to defeat his long time rival, Harry the Husky, in a rythum based battle. It was Inspired by the game Friday Night Funkin. 
+A rhythm game based on Washington State University's mascot, Butch T. Cougar. In the game Butch needs to defeat his long time rival, Harry the Husky, in a rhythm based battle. It was Inspired by the game Friday Night Funkin. 
 
 ### Instruction
 
