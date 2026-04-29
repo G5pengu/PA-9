@@ -1,86 +1,84 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include <SFML/Audio.hpp>
-using namespace sf;
+
+#include "NoteTimeCalc.hpp"
+
 
 int main() {
-	RenderWindow window(sf::VideoMode({ 1920,1080 }), "SFML TEST");
+    sf::RenderWindow window(sf::VideoMode({ 1920,1080 }), "SFML TEST");
 
-	sf::CircleShape NewCircle(100.f, 20U);
-	NewCircle.setFillColor(sf::Color::Magenta);
-	NewCircle.setPosition({ 250, -200 });
+    sf::CircleShape circle1(100.f, 20U);
+    sf::RectangleShape line({ 1000, 2 });
 
-	float y_target = 800;
+    NoteTimeCalc note_time(160.f, 1.5);
 
-	/*
-		float velocity = (total Y Distance) / Beats * (60 / BPM) == pixels / seconds
+    // Setup
+    circle1.setFillColor(sf::Color::Magenta);
+    circle1.setOrigin({ 100.f, 100.f });
+    circle1.setPosition({ 250, -200 });
 
-		Beats = Beats in the song (quarter note is 1 beat)
-		BPM = Beats per minute (fight song is 170)
+    line.setFillColor(sf::Color::White);
+    line.setPosition({ 250, 800 });
 
-		Need to convert BPM to beats per second, so BPS = 170 / 1 min * 1 min / 60 = 170 / 60
+    float startY = -200.f;
+    float targetY = 800.f;
 
-		Inverting gives 60 / 170 == seconds per beat
-		
-		Beats * Seconds per beat = seconds (yay)
+    // All notes travel for the same time, so set travelTime
+    float travelTime = 1.5f;
 
-		To simplify, can just write (beats * 60 / BPM)
+    // Compute velocity (constant ideally for all notes, difficulty setting)
+    float velocity = (targetY - startY) / travelTime;
 
-		Y - Distance = Target - Start (Start will usually be a negative (like 200)
+    float beat = 0.f; // Beat is per note (see class)
+    float spawnTime = note_time.beatToTime(beat) - travelTime;
+   
+    sf::Clock songClock;
+    sf::Clock frameClock;
 
-		THEN convert velocity (pixels/second) to pixels/frame
+    /*
+        When using an actual song, use music.play() to make sure the song is aligned
+        music.play();
+        songClock.restart();
+        float offset = 0.0f;
+    
+    */
 
-		so velocity * seconds/frame = velocity / FPS = pixels / frame
+    window.setFramerateLimit(60);
 
-		(Divide by FPS since / FPS == * SPF
+    while (window.isOpen()) {
 
-	
-		///////////////////////////////////////
+        while (const std::optional event = window.pollEvent()) {
+            if (event->is<sf::Event::Closed>())
+                window.close();
+        }
 
-	
-		To spawn a new song, need to calculate the time between beats
+        float songTime = songClock.getElapsedTime().asSeconds() - note_time.get_offset_time();
+        //float songTime = music.getPlayingOffset().asSeconds() - note_time.get_offset_time(); In audio manager, instead of using a clock use the music stream itself
 
-		170 BPM * 1 M/ 60s = 170 / 60 = 2.8333 B/s
+        float elapsed = songTime - spawnTime;
 
-		Inverse: The whole process is 60 / 170 (60 / BPM)
+        if (elapsed < 0.f)
+        {
+            // do nothing at all (note is not active)
+        }
+        else
+        {
+            // Basically calculate the next time position of the note, t is a normalized (0 - 1) multiplication value
+            float t = elapsed / travelTime;
 
-		Then multiply by # of beats
+            if (t > 1.f)
+                t = 1.f;
+            
+            // Then update position based off of normal t * offset
+            float y = startY + (targetY - startY) * t;
 
-		So Time = (60 / 170) * Beats OR  (60 / BPM) * Beats
+            // Update position directly, do not use move
+            circle1.setPosition({ 250.f, y });
+        }
 
-
-		** Likely will need a switch? to get the note pattern
-		*** Each spawned note pushes the timer to the next note
-
-	*/
-
-	float BPM = 170.0;
-
-	float velocity = (y_target - NewCircle.getPosition().y) / (1 * 60 / BPM); // 1 Beat
-
-	velocity = velocity / (60);
-
-
-
-	window.setFramerateLimit(60);
-
-	//main window loop / frame clock
-	while (window.isOpen()) {
-		while (const std::optional event = window.pollEvent()) {
-			if (event->is<Event::Closed>())
-				window.close();
-		}
-
-		window.clear();
-		window.draw(NewCircle);
-
-		if (NewCircle.getPosition().y < 800)
-		{
-			NewCircle.move({ 0, velocity });
-		}
-
-		window.display();
-	}
-
-	//todo: inputs
+        window.clear();
+        window.draw(circle1);
+        window.draw(line);
+        window.display();
+    }
 }
