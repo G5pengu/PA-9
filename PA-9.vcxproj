@@ -18,6 +18,23 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Func\Body\Arrow.cpp" />
+    <ClCompile Include="Func\Body\Button.cpp" />
+    <ClCompile Include="Func\Body\main.cpp" />
+    <ClCompile Include="Func\Body\Menu.cpp" />
+    <ClCompile Include="Func\Body\net.cpp" />
+    <ClCompile Include="Func\Body\NoteTimeCalc.cpp" />
+    <ClCompile Include="Func\Body\SoundManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Func\Header\Arrow.hpp" />
+    <ClInclude Include="Func\Header\Button.hpp" />
+    <ClInclude Include="Func\Header\Menu.hpp" />
+    <ClInclude Include="Func\Header\net.hpp" />
+    <ClInclude Include="Func\Header\NoteTimeCalc.hpp" />
+    <ClInclude Include="Func\Header\SoundManager.hpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>18.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
@@ -134,19 +151,6 @@
       <AdditionalDependencies>sfml-graphics-d.lib;sfml-window-d.lib;sfml-audio-d.lib;sfml-network-d.lib;sfml-network.lib;sfml-system-d.lib;winmm.lib;gdi32.lib;user32.lib;kernel32.lib;dwmapi.lib;shlwapi.lib;freetyped.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Menu.cpp" />
-    <ClCompile Include="net.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Menu.hpp" />
-    <ClInclude Include="net.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="LeaderBoard.Csv" />
-    <None Include="Test.csv" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
