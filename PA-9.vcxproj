@@ -136,9 +136,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="net.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Menu.hpp" />
     <ClInclude Include="net.hpp" />
   </ItemGroup>
   <ItemGroup>
