@@ -4,7 +4,7 @@
 using namespace sf;
 using namespace std;
 
-class Menu: public Network
+class Menu : public Network
 {
 public:
 	Menu();
@@ -17,4 +17,3 @@ public:
 	Font font;
 
 };
-

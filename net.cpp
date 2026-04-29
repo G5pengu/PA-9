@@ -10,8 +10,7 @@ Network::Network()
 	ip = "255.255.255.255";
 }
 Network::~Network()
-{
-}
+{}
 
 // UDP Send and Receive the leader board
 void Network::send()
@@ -24,7 +23,7 @@ void Network::send()
 		pack << leaderboard[i].user << leaderboard[i].score;
 
 	}
-	
+
 	sock.send(pack, ip, port);
 	cout << "package sent\n";
 }
@@ -34,7 +33,7 @@ void Network::listen()
 	Packet pack;
 	string x;
 	sock.bind(port);
-	
+
 	std::optional<sf::IpAddress> sender;
 	unsigned short receiverport;
 
@@ -44,14 +43,14 @@ void Network::listen()
 		//unpacks the Leader board  from the UDP package
 		for (int i = 0; i < 10; i++)
 		{
-			
+
 			pack >> lead[i].user >> lead[i].score;;
-			
+
 		}
 		merge_boards(lead);
 	}
-	
-	
+
+
 }
 
 // loads and saves the leader board to a CSV
@@ -60,11 +59,11 @@ void Network::load(string Boardfile)
 	fstream csv;
 	csv.open(Boardfile);
 	int i = 0;
-	while(1){
+	while (1) {
 		string user;
 		string score;
-		
-		if (!getline(csv, user,',')||i>9)
+
+		if (!getline(csv, user, ',') || i > 9)
 		{
 			break;
 		}
@@ -74,7 +73,7 @@ void Network::load(string Boardfile)
 		i++;
 	}
 }
-void Network::save() 
+void Network::save()
 {
 	fstream csv;
 	csv.open("LeaderBoard.Csv");
@@ -95,15 +94,15 @@ void Network::setLeader(int pos, Leader newLeader)
 {
 	for (int i = 9; i > pos; i--)
 	{
-		leaderboard[i]= leaderboard[i-1];
+		leaderboard[i] = leaderboard[i - 1];
 	}
 	leaderboard[pos] = newLeader;
 }
 void Network::addLeader(Leader newLeader)
 {
-	for ( int i = 0; i < 10; i++)
+	for (int i = 0; i < 10; i++)
 	{
-		if(newLeader.score<leaderboard[i].score)
+		if (newLeader.score < leaderboard[i].score)
 		{
 			setLeader(i, newLeader);
 			return;
@@ -116,20 +115,20 @@ void Network::print_board()
 {
 	for (int i = 0; i < 10; i++)
 	{
-		cout << leaderboard[i].user <<", " << leaderboard[i].score<< endl;
+		cout << leaderboard[i].user << ", " << leaderboard[i].score << endl;
 	}
 }
-void Network::merge_boards(Leader board[10]) 
+void Network::merge_boards(Leader board[10])
 {
 	for (int i = 0; i < 10; i++)
 	{
-		for(int u = 0; u < 10; u++)
+		for (int u = 0; u < 10; u++)
 		{
 			if (board[i].user == leaderboard[u].user && board[i].score == leaderboard[u].score)
 			{
 				break;
 			}
-			if (board[i].score>leaderboard[u].score)
+			if (board[i].score > leaderboard[u].score)
 			{
 				setLeader(u, board[i]);
 				break;
@@ -148,7 +147,7 @@ void Network::cat()// pure debug test case, UwU
 {
 	load("LeaderBoard.csv");
 	//ip = "127.0.0.1"; for loop back 
-	Network m; 
+	Network m;
 	m.load("Test.csv");
 
 	cout << "strating listener thread\n";

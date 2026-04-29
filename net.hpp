@@ -27,7 +27,7 @@ public:
 	void listen();
 
 	// loads and saves the leader board to a CSV
-	void load(string Boardfile="LeaderBoard.Csv");
+	void load(string Boardfile = "LeaderBoard.Csv");
 	void save();
 
 	//gets and sets the leader board
@@ -47,4 +47,3 @@ private:
 	// the ip address being used Tests use the loopback address(127.0.0.1) while normal opperations use the broadcast address(255.255.255.255)
 	string ip;
 };
-

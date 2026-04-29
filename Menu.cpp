@@ -6,8 +6,7 @@ Menu::Menu()
 }
 
 Menu::~Menu()
-{
-}
+{}
 
 void Menu::display_leaders()
 {
@@ -17,7 +16,7 @@ void Menu::display_leaders()
 
     RectangleShape exitBtn(btnSize);
 
-    Text title(font, "Leaderboard",  80);
+    Text title(font, "Leaderboard", 80);
     title.setPosition(Vector2f(720, 100));
 
     Texture leaderOutline;
@@ -36,12 +35,12 @@ void Menu::display_leaders()
     exitText.setFillColor(Color::Black);
 
 
-    Text backText(font,"Back", 40);
+    Text backText(font, "Back", 40);
 
     // center text inside button
 
     exitText.setPosition(
-        Vector2f(exitBtn.getPosition().x + exitBtn.getSize().x/3,
+        Vector2f(exitBtn.getPosition().x + exitBtn.getSize().x / 3,
             exitBtn.getPosition().y + exitBtn.getSize().y / 5));
 
 
@@ -53,7 +52,7 @@ void Menu::display_leaders()
     for (int i = 0; i < 10; i++)
     {
         Leader leader = getLeader(i);
-        string line = to_string(i+1)+": " + leader.user + " : " + to_string(leader.score).substr(0,5) + " pts";
+        string line = to_string(i + 1) + ": " + leader.user + " : " + to_string(leader.score).substr(0, 5) + " pts";
 
         Text text(font, line, 30);
         text.setPosition(Vector2f(800, 300 + i * 60)); // spaced vertically
@@ -100,8 +99,8 @@ void Menu::menu()
 {
     int width = 1920;
     int height = 1080;
-	RenderWindow window(sf::VideoMode({ 1920,1080 }), "SFML TEST");
-    
+    RenderWindow window(sf::VideoMode({ 1920,1080 }), "SFML TEST");
+
 
     // Buttons
     Vector2f btnSize(500, 120);
@@ -123,7 +122,7 @@ void Menu::menu()
 
     Vector2 textpos(10, 10);
     // Text
-    Text playText(font, "Play",  50);
+    Text playText(font, "Play", 50);
     Text leaderText(font, "Leaderboard", 50);
     Text exitText(font, "Exit", 50);
 
@@ -145,7 +144,7 @@ void Menu::menu()
 
                     if (playBtn.getGlobalBounds().contains((Vector2f)mousePos))
                     {
-                    
+
                     }
                     if (leaderBtn.getGlobalBounds().contains((Vector2f)mousePos))
                     {
@@ -158,10 +157,10 @@ void Menu::menu()
                         cout << "clicked\n";
                         window.close();
                     }
-                        
+
                 }
 
-           
+
             }
         }
 
@@ -178,7 +177,7 @@ void Menu::menu()
         window.display();
     }
 
-    
+
 }
 void Menu::canvas_test()
 {
@@ -209,7 +208,7 @@ void Menu::canvas_test()
             std::string label = "(" + std::to_string(x) + "," + std::to_string(y) + ")";
             sf::Text text(font, label, 20);
             text.setFillColor(sf::Color(150, 150, 150));
-            text.setPosition(Vector2f((float)x, (float)y - 12.f) );
+            text.setPosition(Vector2f((float)x, (float)y - 12.f));
             labels.push_back(text);
         }
     }
