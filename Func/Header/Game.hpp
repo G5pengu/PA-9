@@ -2,6 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include "Arrow.hpp"
+#include "NoteTimeCalc.hpp"
 #include <vector>
 #include <cstdlib>
 #include <ctime>
@@ -38,8 +39,12 @@ private:
     std::vector<Arrow> arrows;
     int score;
     int missCount;
-    float spawnTimer;
+    NoteTimeCalc noteTime;
+    sf::Clock songClock;
+    int currentBeat;
+    float travelTime;
     float ratingTimer;
+    int checkLoop;
 
     // Methods
     void processEvents();
