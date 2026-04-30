@@ -15,7 +15,7 @@ Game::Game() : window(sf::VideoMode({ 1920u, 1080u }), "FNF Arrow Tester"), bgSp
 {
     std::srand((unsigned)std::time(nullptr));
     window.setFramerateLimit(60);
-
+    
     if (!bgTex[0].loadFromFile("bg0.png")) {}
     else {
         bgSprites[0] = new sf::Sprite(bgTex[0]);
