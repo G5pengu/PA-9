@@ -48,7 +48,7 @@ Game::~Game() {
 
 void Game::run() {
     if (music.openFromFile("assets/song.ogg")) {
-        music.setLooping(true);
+        music.setLooping(false);
         music.play();
         songClock.restart();
     }
@@ -138,6 +138,11 @@ void Game::update(float dt) {
 
     if (missCount >= MAX_MISSES) {
         gameOver = true;
+    }
+
+    if (music.getStatus() == sf::Music::Status::Stopped && !gameOver) {
+        gameOver = true;
+        // play win music or whatever
     }
 }
 
