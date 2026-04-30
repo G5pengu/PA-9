@@ -31,6 +31,9 @@ private:
     // Background
     sf::Texture bgTex[2];
     sf::Sprite* bgSprites[2];
+
+    sf::Texture win;
+    sf::Sprite* winSprite;
     int bgFrame;
     float bgTimer;
     float bgFrameRate;

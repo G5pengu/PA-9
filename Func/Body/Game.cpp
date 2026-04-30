@@ -10,7 +10,6 @@ Direction Game::indexToDir(int i) {
     }
 }
 
-
 /*spawnTimer(0.f)*/
 Game::Game() : window(sf::VideoMode({ 1920u, 1080u }), "FNF Arrow Tester"), bgSprites{ nullptr, nullptr }, bgFrame(0), bgTimer(0.f), bgFrameRate(.4f), score(0),
 missCount(0), gameOver(false), ratingTimer(0.f), checkLoop(1), noteTime(144.f, 1.5f), currentBeat(0), travelTime(1.5f)
@@ -31,12 +30,6 @@ missCount(0), gameOver(false), ratingTimer(0.f), checkLoop(1), noteTime(144.f, 1
         sf::Vector2u s = bgTex[1].getSize();
         bgSprites[1]->setScale(sf::Vector2f(1920.f / s.x, 1080.f / s.y));
     }
-
-    if (music.openFromFile("assets/song.ogg")) {
-        music.setLooping(true);
-        music.play();
-        songClock.restart();
-    }
 }
 
 Game::~Game() {
@@ -45,6 +38,12 @@ Game::~Game() {
 }
 
 void Game::run() {
+    if (music.openFromFile("assets/song.ogg")) {
+        music.setLooping(true);
+        music.play();
+        songClock.restart();
+    }
+
     sf::Clock clock;
     while (window.isOpen()) {
         float dt = clock.restart().asSeconds();
@@ -134,6 +133,13 @@ void Game::update(float dt) {
 
     if (gameOver) {
         while (checkLoop == 1) {
+            if (!win.loadFromFile("assets/WINYAY.png")) {}
+            else {
+                winSprite = new sf::Sprite(win);
+                sf::Vector2u s = win.getSize();
+                winSprite->setScale(sf::Vector2f(1920.f / s.x, 1080.f / s.y));
+            }
+
             if (music.openFromFile("assets/pipe.ogg")) {
                 music.play();
                 checkLoop = 0;
