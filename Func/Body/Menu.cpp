@@ -171,6 +171,7 @@ void Menu::menu()
         window.draw(leaderBtn);
         window.draw(exitBtn);
 
+
         window.draw(playText);
         window.draw(leaderText);
         window.draw(exitText);

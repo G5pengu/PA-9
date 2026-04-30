@@ -10,8 +10,10 @@ Direction Game::indexToDir(int i) {
     }
 }
 
+
+/*spawnTimer(0.f)*/
 Game::Game() : window(sf::VideoMode({ 1920u, 1080u }), "FNF Arrow Tester"), bgSprites{ nullptr, nullptr }, bgFrame(0), bgTimer(0.f), bgFrameRate(.4f), score(0),
-missCount(0), gameOver(false), spawnTimer(0.f), ratingTimer(0.f)
+missCount(0), gameOver(false), ratingTimer(0.f), checkLoop(1), noteTime(144.f, 1.5f), currentBeat(0), travelTime(1.5f)
 {
     std::srand((unsigned)std::time(nullptr));
     window.setFramerateLimit(60);
@@ -33,6 +35,7 @@ missCount(0), gameOver(false), spawnTimer(0.f), ratingTimer(0.f)
     if (music.openFromFile("assets/song.ogg")) {
         music.setLooping(true);
         music.play();
+        songClock.restart();
     }
 }
 
@@ -101,11 +104,12 @@ void Game::update(float dt) {
         bgFrame = (bgFrame + 1) % 2;
     }
 
-    // Spawn arrows
-    spawnTimer += dt;
-    if (spawnTimer >= 1.2f) {
-        spawnTimer = 0.f;
+    float songTime = music.getPlayingOffset().asSeconds() - noteTime.get_offset_time();
+    float nextBeatTime = noteTime.beatToTime(currentBeat) - travelTime;
+
+    if (songTime >= nextBeatTime) {
         spawnArrow();
+        currentBeat++;
     }
 
     for (auto& a : arrows) {
@@ -129,8 +133,11 @@ void Game::update(float dt) {
     }
 
     if (gameOver) {
-        if (music.openFromFile("assets/pipe.ogg")) {
-            music.play();
+        while (checkLoop == 1) {
+            if (music.openFromFile("assets/pipe.ogg")) {
+                music.play();
+                checkLoop = 0;
+            }
         }
     }
 }
@@ -143,10 +150,10 @@ void Game::spawnArrow() {
 }
 
 void Game::detectMisses() {
-    for (auto& a : arrows) {
-        if (a.getPosition().y < HIT_LINE_Y - 50.f && !a.wasGoodHit) {
+    for (int i = 0; i < arrows.size(); i++) {
+        if (arrows[i].getPosition().y < HIT_LINE_Y - 50.f && !arrows[i].wasGoodHit) {
             missCount++;
-            a.wasGoodHit = true;
+            arrows[i].wasGoodHit = true;
             ratingTimer = 0.6f;
         }
     }
