@@ -1,4 +1,5 @@
 #include "TestCases.hpp"
+
 #include <fstream>
 #include <vector>
 
@@ -126,7 +127,7 @@ bool TestCases::init()
 }
 
 //calls a test function that is in "net.cpp"
-bool TestCases::net()
+void TestCases::net()
 {
     netTest();
 }
@@ -192,9 +193,138 @@ bool TestCases::input()
     return all_works;
 }
 
-bool TestCases::win()
+bool TestCases::arrowSpawn()
 {
+    std::cout << "[arrowSpawnTest] Starting arrow spawn test...\n";
+    bool all_works = true;
 
+    // -------------------------------------------------------------------------
+    // SCREEN SETUP
+    // NOTE: Replace these with YOUR screen width/height variables here
+    // -------------------------------------------------------------------------
+    const float screenWidth = 800.f;
+    const float screenHeight = 600.f;
+    const float arrowSpacing = screenWidth / 5.f;
+
+    // -------------------------------------------------------------------------
+    // SPAWN ALL 4 ARROWS OFF BOTTOM OF SCREEN
+    // NOTE: Replace spawn positions with YOUR arrow spawn function here
+    // -------------------------------------------------------------------------
+    std::vector<Arrow> arrows =
+    {
+        Arrow(Direction::LEFT),
+        Arrow(Direction::DOWN),
+        Arrow(Direction::UP),
+        Arrow(Direction::RIGHT),
+    };
+
+    float spawnY = screenHeight + 50.f;   // just below screen
+    arrows[0].setPosition({ arrowSpacing * 1.f, spawnY });
+    arrows[1].setPosition({ arrowSpacing * 2.f, spawnY });
+    arrows[2].setPosition({ arrowSpacing * 3.f, spawnY });
+    arrows[3].setPosition({ arrowSpacing * 4.f, spawnY });
+
+    // -------------------------------------------------------------------------
+    // TEST 1 — All arrows spawn off screen (below screenHeight)
+    // -------------------------------------------------------------------------
+    for (const auto& arrow : arrows)
+    {
+        if (arrow.getPosition().y <= screenHeight)
+        {
+            std::cerr << "[arrowSpawnTest] FAIL: Arrow did not spawn off screen. Y: "
+                << arrow.getPosition().y << "\n";
+            all_works = false;
+        }
+        else
+        {
+            std::cout << "[arrowSpawnTest] PASS: Arrow spawned off screen at Y: "
+                << arrow.getPosition().y << "\n";
+        }
+    }
+
+    // -------------------------------------------------------------------------
+    // TEST 2 — All arrows have distinct X positions (no overlap)
+    // -------------------------------------------------------------------------
+    for (int i = 0; i < (int)arrows.size(); i++)
+    {
+        for (int j = i + 1; j < (int)arrows.size(); j++)
+        {
+            if (arrows[i].getPosition().x == arrows[j].getPosition().x)
+            {
+                std::cerr << "[arrowSpawnTest] FAIL: Two arrows share X position: "
+                    << arrows[i].getPosition().x << "\n";
+                all_works = false;
+            }
+        }
+    }
+    if (all_works)
+        std::cout << "[arrowSpawnTest] PASS: All arrows have distinct X positions.\n";
+
+    // -------------------------------------------------------------------------
+    // TEST 3 — Arrows are ordered left to right by X position
+    // -------------------------------------------------------------------------
+    for (int i = 0; i < (int)arrows.size() - 1; i++)
+    {
+        if (arrows[i].getPosition().x >= arrows[i + 1].getPosition().x)
+        {
+            std::cerr << "[arrowSpawnTest] FAIL: Arrows are not ordered left to right.\n";
+            all_works = false;
+        }
+    }
+    if (all_works)
+        std::cout << "[arrowSpawnTest] PASS: Arrows ordered left to right.\n";
+
+    // -------------------------------------------------------------------------
+    // TEST 4 — Direction enum is correctly assigned
+    // -------------------------------------------------------------------------
+    const std::vector<Direction> expectedDirs =
+    {
+        Direction::LEFT, Direction::DOWN, Direction::UP, Direction::RIGHT
+    };
+    const std::vector<std::string> dirNames = { "LEFT", "DOWN", "UP", "RIGHT" };
+
+    for (int i = 0; i < (int)arrows.size(); i++)
+    {
+        if (arrows[i].direction != expectedDirs[i])
+        {
+            std::cerr << "[arrowSpawnTest] FAIL: Arrow " << dirNames[i]
+                << " has wrong direction assigned.\n";
+            all_works = false;
+        }
+        else
+        {
+            std::cout << "[arrowSpawnTest] PASS: Arrow " << dirNames[i]
+                << " direction correctly assigned.\n";
+        }
+    }
+
+    // -------------------------------------------------------------------------
+    // TEST 5 — HitRating initializes to NONE
+    // -------------------------------------------------------------------------
+    for (int i = 0; i < (int)arrows.size(); i++)
+    {
+        if (arrows[i].rating != HitRating::NONE || arrows[i].wasGoodHit != false)
+        {
+            std::cerr << "[arrowSpawnTest] FAIL: Arrow " << dirNames[i]
+                << " did not initialize with clean hit state.\n";
+            all_works = false;
+        }
+        else
+        {
+            std::cout << "[arrowSpawnTest] PASS: Arrow " << dirNames[i]
+                << " initialized with clean hit state.\n";
+        }
+    }
+
+    // -------------------------------------------------------------------------
+    // RESULT
+    // -------------------------------------------------------------------------
+    if (all_works)
+        std::cout << "[arrowSpawnTest] All arrow spawn checks passed.\n";
+    else
+        std::cerr << "[arrowSpawnTest] One or more arrow spawn checks FAILED.\n";
+
+    return all_works;
 }
 
 bool TestCases::fail()

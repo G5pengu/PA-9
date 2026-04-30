@@ -5,15 +5,12 @@
 
 #include <iostream>
 #include <SFML/Graphics.hpp>
-
-#include "SFML/Graphics.hpp"
-#include "net.hpp"
-#include "SoundManager.hpp"
-#include "NoteTimeCalc.hpp"
-#include "Button.hpp"
-#include "Arrow.hpp"
-#include "Game.hpp"
-
+#include "Func/Header/net.hpp"
+#include "Func/Header/SoundManager.hpp"
+#include "Func/Header/NoteTimeCalc.hpp"
+#include "Func/Header/Button.hpp"
+#include "Func/Header/Arrow.hpp"
+#include "Func/Header/Game.hpp"
 
 class TestCases
 {
@@ -21,9 +18,9 @@ public:
 	TestCases();
 
 	bool init();
-	bool net();
+	void net();
 	bool input();
-	bool win();
+	bool arrowSpawn();
 	bool fail();
 };
 
