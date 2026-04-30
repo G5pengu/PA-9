@@ -45,11 +45,28 @@ void Game::run() {
     }
 
     sf::Clock clock;
-    while (window.isOpen()) {
+    while (window.isOpen() && !gameOver) {
         float dt = clock.restart().asSeconds();
         processEvents();
         update(dt);
         draw();
+    }
+
+    if (gameOver) {
+        while (checkLoop == 1) {
+            if (!win.loadFromFile("assets/WINYAY.png")) {}
+            else {
+                winSprite = new sf::Sprite(win);
+                sf::Vector2u s = win.getSize();
+                winSprite->setScale(sf::Vector2f(1920.f / s.x, 1080.f / s.y));
+            }
+
+            if (music.openFromFile("assets/pipe.ogg")) {
+                music.play();
+                music.setLooping(false);
+                checkLoop = 0;
+            }
+        }
     }
 }
 
@@ -70,9 +87,9 @@ void Game::processEvents() {
 void Game::handleKeyPress(sf::Keyboard::Key key) {
     Direction pressedDir;
     switch (key) {
-    case sf::Keyboard::Key::Left: pressedDir = Direction::LEFT;  break;
-    case sf::Keyboard::Key::Down: pressedDir = Direction::DOWN;  break;
-    case sf::Keyboard::Key::Up: pressedDir = Direction::UP;    break;
+    case sf::Keyboard::Key::Left: pressedDir = Direction::LEFT; break;
+    case sf::Keyboard::Key::Down: pressedDir = Direction::DOWN; break;
+    case sf::Keyboard::Key::Up: pressedDir = Direction::UP; break;
     case sf::Keyboard::Key::Right: pressedDir = Direction::RIGHT; break;
     default: return;
     }
@@ -129,22 +146,6 @@ void Game::update(float dt) {
 
     if (missCount >= MAX_MISSES) {
         gameOver = true;
-    }
-
-    if (gameOver) {
-        while (checkLoop == 1) {
-            if (!win.loadFromFile("assets/WINYAY.png")) {}
-            else {
-                winSprite = new sf::Sprite(win);
-                sf::Vector2u s = win.getSize();
-                winSprite->setScale(sf::Vector2f(1920.f / s.x, 1080.f / s.y));
-            }
-
-            if (music.openFromFile("assets/pipe.ogg")) {
-                music.play();
-                checkLoop = 0;
-            }
-        }
     }
 }
 
