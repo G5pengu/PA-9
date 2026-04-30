@@ -15,7 +15,7 @@ Network::~Network()
 // UDP Send and Receive the leader board
 void Network::send()
 {
-	IpAddress ip = *IpAddress::resolve(this->ip);
+	sf::IpAddress ip = sf::Dns::resolve(this->ip).value()[0];
 	UdpSocket sock;
 	Packet pack;
 	for (int i = 0; i < 10; i++)
@@ -153,7 +153,7 @@ void Network::cat()// pure debug test case, UwU
 	cout << "strating listener thread\n";
 	thread listener(&Network::listen, this);
 
-	sleep(seconds(1));
+	sleep(seconds(60));
 
 	cout << "starting sender tread";
 	thread sender(&Network::send, m);

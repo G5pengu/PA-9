@@ -101,7 +101,6 @@ void Game::update(float dt) {
         bgFrame = (bgFrame + 1) % 2;
     }
 
-    // Spawn arrows
     spawnTimer += dt;
     if (spawnTimer >= 1.2f) {
         spawnTimer = 0.f;
