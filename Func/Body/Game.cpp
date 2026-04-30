@@ -68,8 +68,8 @@ void Game::processEvents() {
 void Game::handleKeyPress(sf::Keyboard::Key key) {
     Direction pressedDir;
     switch (key) {
-    case sf::Keyboard::Key::Left:  pressedDir = Direction::LEFT;  break;
-    case sf::Keyboard::Key::Down:  pressedDir = Direction::DOWN;  break;
+    case sf::Keyboard::Key::Left: pressedDir = Direction::LEFT;  break;
+    case sf::Keyboard::Key::Down: pressedDir = Direction::DOWN;  break;
     case sf::Keyboard::Key::Up: pressedDir = Direction::UP;    break;
     case sf::Keyboard::Key::Right: pressedDir = Direction::RIGHT; break;
     default: return;
@@ -126,6 +126,12 @@ void Game::update(float dt) {
 
     if (missCount >= MAX_MISSES) {
         gameOver = true;
+    }
+
+    if (gameOver) {
+        if (music.openFromFile("assets/pipe.ogg")) {
+            music.play();
+        }
     }
 }
 
