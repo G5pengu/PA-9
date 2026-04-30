@@ -35,7 +35,7 @@ public:
 	void setLeader(int pos, Leader newLeader);
 	void addLeader(Leader newLeader);
 
-	void netTest();
+	bool netTest();
 	void cat();//curiosity killed the cat
 
 	void print_board();

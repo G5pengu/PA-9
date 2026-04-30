@@ -139,9 +139,27 @@ void Network::merge_boards(Leader board[10])
 }
 
 //Test cases
-void Network::netTest()
+bool Network::netTest()
 {
+	// pure debug test case, UwU
+	
+		load("assets/LeaderBoard.csv");
+		Network m;
+		m.load("assets/Test.csv");
 
+		cout << "strating listener thread\n";
+		thread listener(&Network::listen, this);
+
+		sleep(seconds(1));
+
+		cout << "starting sender tread";
+		thread sender(&Network::send, m);
+
+		listener.join();
+		sender.join();
+		print_board();
+		return true;
+	
 }
 void Network::cat()// pure debug test case, UwU
 {
