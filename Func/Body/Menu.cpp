@@ -100,35 +100,58 @@ void Menu::menu()
     int width = 1920;
     int height = 1080;
     RenderWindow window(sf::VideoMode({ 1920,1080 }), "SFML TEST");
-
+    int state = 1;
+    int timer = 0;
 
     // Buttons
-    Vector2f btnSize(500, 120);
+    Vector2f btnSize(250, 80);
 
     RectangleShape playBtn(btnSize);
+    RectangleShape testBtn(btnSize);
+    RectangleShape hwtoBtn(btnSize);
     RectangleShape leaderBtn(btnSize);
     RectangleShape exitBtn(btnSize);
 
+    Texture back1;
+    Texture back2;
+
+    back1.loadFromFile("assets/Menu2.png");
+    back2.loadFromFile("assets/Menu.png");
+
+    Sprite background(back1);
+    background.setScale(Vector2f(1.55,1.6));
+
     // Center X
-    float centerX = (1080) / 2;
+    int x = 0;
+    float centerX = 1920/7;
+    float startY = 75;
+    float spacing = 1920/7;
 
-    playBtn.setPosition(Vector2f(centerX, 400));
-    leaderBtn.setPosition(Vector2f(centerX, 600));
-    exitBtn.setPosition(Vector2f(centerX, 800));
+    playBtn.setPosition(Vector2f(centerX + spacing * x++, startY ));
+    hwtoBtn.setPosition(Vector2f(centerX + spacing * x++, startY ));
+    testBtn.setPosition(Vector2f(centerX + spacing * x++, startY ));
+    leaderBtn.setPosition(Vector2f(centerX + spacing * x++, startY ));
+    exitBtn.setPosition(Vector2f(centerX + spacing * x++, startY ));
 
-    playBtn.setFillColor(Color::Blue);
-    leaderBtn.setFillColor(Color::Green);
-    exitBtn.setFillColor(Color::Red);
+    playBtn.setFillColor(Color::Color(220,20,60));
+    hwtoBtn.setFillColor(Color::Color(128, 128, 128));
+    testBtn.setFillColor(Color::Color(220, 20, 60));
+    leaderBtn.setFillColor(Color::Color(128, 128, 128));
+    exitBtn.setFillColor(Color::Color(220, 20, 60));
 
-    Vector2 textpos(10, 10);
     // Text
-    Text playText(font, "Play", 50);
-    Text leaderText(font, "Leaderboard", 50);
-    Text exitText(font, "Exit", 50);
-
-    playText.setPosition(Vector2f(centerX, 400));
-    leaderText.setPosition(Vector2f(centerX, 600));
-    exitText.setPosition(Vector2f(centerX, 800));
+    Text playText(font, "Play", 30);
+    Text hwtoText(font, "How to Play", 30);
+    Text TestText(font, "Test Cases", 30);
+    Text leaderText(font, "Leaderboard", 30);
+    Text exitText(font, "Exit", 30);
+ 
+    x = 0;
+    playText.setPosition(Vector2f(centerX + spacing * x++, startY ));
+    hwtoText.setPosition(Vector2f(centerX + spacing * x++, startY ));
+    TestText.setPosition(Vector2f(centerX + spacing * x++, startY ));
+    leaderText.setPosition(Vector2f(centerX + spacing * x++, startY ));
+    exitText.setPosition(Vector2f(centerX + spacing * x++, startY ));
 
     while (window.isOpen())
     {
@@ -147,6 +170,16 @@ void Menu::menu()
                         window.close();
                         run();
                     }
+                    if (hwtoBtn.getGlobalBounds().contains((Vector2f)mousePos))
+                    {
+                        cout << "how to button\n";
+                        window.close();
+                        howto();
+                    }
+                    if (testBtn.getGlobalBounds().contains((Vector2f)mousePos))
+                    {
+                        cout << "test cases\n";
+                    }
                     if (leaderBtn.getGlobalBounds().contains((Vector2f)mousePos))
                     {
                         cout << "clicked leader\n";
@@ -164,16 +197,85 @@ void Menu::menu()
 
             }
         }
+        if (timer > 60) {
+            if (state ==1)
+            {
+                background.setTexture(back1);
+                state *= -1;
+                timer = 0;
+            }
+            else if (state == -1)
+            {
+                background.setTexture(back2);
+                state *= -1;
+                timer = 0;
+            }
+        }
+        else
+        {
+            timer++;
+        }
 
         window.clear();
 
+        window.draw(background);
+
         window.draw(playBtn);
+        window.draw(hwtoBtn);
+        window.draw(testBtn);
         window.draw(leaderBtn);
         window.draw(exitBtn);
 
         window.draw(playText);
+        window.draw(hwtoText);
+        window.draw(TestText);
         window.draw(leaderText);
         window.draw(exitText);
+
+        window.display();
+    }
+
+
+}
+void Menu::howto()
+{
+    RenderWindow window(sf::VideoMode({ 1200,700 }), "How to Play");
+    Texture x;
+    x.loadFromFile("assets/howto.png");
+    Sprite s(x);
+
+    RectangleShape backbtn(Vector2f(100,50));
+    backbtn.setFillColor(Color::Red);
+    backbtn.setPosition(Vector2f(50,50));
+
+    Text backtxt(font, "Back", 20);
+    backtxt.setPosition(Vector2f(50, 50));
+
+    while (window.isOpen()) 
+    {
+        while (auto event = window.pollEvent())
+        {
+
+            if (event->is<Event::MouseButtonPressed>())
+            {
+                Vector2i mousePos = Mouse::getPosition(window);
+                if (event->is<Event::MouseButtonPressed>())
+                {
+                    Vector2i mousePos = Mouse::getPosition(window);
+                    
+                    if (backbtn.getGlobalBounds().contains((Vector2f)mousePos))
+                    {
+                        window.close();
+                        menu();
+                    }
+                }
+            }
+        }
+        window.draw(s);
+
+        window.draw(backbtn);
+        window.draw(backtxt);
+        
 
         window.display();
     }
@@ -183,10 +285,6 @@ void Menu::menu()
 void Menu::canvas_test()
 {
     sf::RenderWindow window(sf::VideoMode({ 1920, 1080 }), "SFML TEST");
-
-    sf::Font font;
-    if (!font.openFromFile("calibri.ttf"))
-        return;
 
     int spacing = 100;
     sf::Vector2u size = window.getSize();

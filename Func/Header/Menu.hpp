@@ -17,6 +17,7 @@ public:
 
 	void display_leaders();
 	void menu();
+	void howto();
 	void canvas_test();
 
 	Font font;

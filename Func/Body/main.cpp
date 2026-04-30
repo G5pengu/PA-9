@@ -1,9 +1,6 @@
 #include "../Header/Menu.hpp"
 
-int main() 
-{
+int main() {
     Menu m;
-    m.menu();
+    m.menu(); 
 }
-
-

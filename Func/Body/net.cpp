@@ -69,7 +69,14 @@ void Network::load(string Boardfile)
 		}
 		getline(csv, score);
 		leaderboard[i].user = user;
-		leaderboard[i].score = stof(score);
+		if (score=="")
+		{
+			leaderboard[i].score = 0;
+		}
+		else
+		{
+			leaderboard[i].score = stof(score);
+		}
 		i++;
 	}
 }

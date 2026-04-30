@@ -39,6 +39,9 @@
     <ClCompile Include="Func\Body\Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Func\Body\Test.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Func\Header\Button.hpp">
@@ -62,5 +65,16 @@
     <ClInclude Include="Func\Header\Game.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Func\Header\Test.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="assets\Menu.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="assets\Menu2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>
