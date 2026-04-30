@@ -33,10 +33,7 @@ missCount(0), gameOver(false), ratingTimer(0.f), noteTime(144.f, 1.5f), currentB
         if (gameOver && winSprite) {
             window.draw(*winSprite);
 
-            if (music.openFromFile("assets/pipe.ogg")) {
-                music.play();
-                music.setLooping(false);
-            }
+            soundManager.play_sound(1, 50.f);
         }
     }
 }
@@ -46,12 +43,28 @@ Game::~Game() {
     delete bgSprites[1];
 }
 
+/*
+soundManager
+
+Music:
+
+Index 0: song
+
+Sounds:
+
+Index 0: Buzzer
+Index 1: Pipe
+
+*/
 void Game::run() {
-    if (music.openFromFile("assets/song.ogg")) {
-        music.setLooping(false);
-        music.play();
-        songClock.restart();
-    }
+    soundManager.input_music("assets/song.ogg");
+    soundManager.play_music(0, 100, false);
+    sf::SoundBuffer temp;
+    temp.loadFromFile("assets/IncorrectBuzzer.ogg");
+    soundManager.input_sound(temp);
+    temp.loadFromFile("assets/pipe.ogg");
+    soundManager.input_sound(temp);
+
 
     sf::Clock clock;
     while (window.isOpen() && !gameOver) {
@@ -113,7 +126,7 @@ void Game::update(float dt) {
         bgFrame = (bgFrame + 1) % 2;
     }
 
-    float songTime = music.getPlayingOffset().asSeconds() - noteTime.get_offset_time();
+    float songTime = soundManager.get_music_stream().getPlayingOffset().asSeconds() - noteTime.get_offset_time();
     float nextBeatTime = noteTime.beatToTime(currentBeat) - travelTime;
 
     if (songTime >= nextBeatTime) {
@@ -141,7 +154,7 @@ void Game::update(float dt) {
         gameOver = true;
     }
 
-    if (music.getStatus() == sf::Music::Status::Stopped && !gameOver) {
+    if (soundManager.get_music_stream().getStatus() == sf::Music::Status::Stopped && !gameOver) {
         gameOver = true;
          //play win music or whatever
     }
@@ -160,10 +173,7 @@ void Game::detectMisses() {
             missCount++;
             arrows[i].wasGoodHit = true;
             ratingTimer = 0.6f;
-            if (music.openFromFile("assets/IncorrectBuzzer.ogg")) {
-                music.play();
-                music.setLooping(false);
-            }
+            soundManager.play_sound(0, 50.f);
         }
     }
 }

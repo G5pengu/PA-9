@@ -3,6 +3,7 @@
 #include <SFML/Audio.hpp>
 #include "Arrow.hpp"
 #include "NoteTimeCalc.hpp"
+#include "SoundManager.hpp"
 #include <vector>
 #include <cstdlib>
 #include <ctime>
@@ -26,7 +27,7 @@ private:
     // Window
     sf::RenderWindow window;
 
-    sf::Music music;
+    SoundManager soundManager;
 
     // Background
     sf::Texture bgTex[2];
