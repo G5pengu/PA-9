@@ -10,7 +10,7 @@ Button::Button(const sf::Vector2f& input_pos, const sf::Vector2f& input_size, co
 	this->setFillColor(input_color);
 
 
-	if (set_outline)
+	if (set_outline) 
 	{
 		this->setOutlineColor(border_color);
 		this->setOutlineThickness(input_size.x * .1f);

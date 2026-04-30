@@ -12,7 +12,7 @@ Direction Game::indexToDir(int i) {
 
 /*spawnTimer(0.f)*/
 Game::Game() : window(sf::VideoMode({ 1920u, 1080u }), "FNF Arrow Tester"), bgSprites{ nullptr, nullptr }, bgFrame(0), bgTimer(0.f), bgFrameRate(.4f), score(0),
-missCount(0), gameOver(false), ratingTimer(0.f), checkLoop(1), noteTime(144.f, 1.5f), currentBeat(0), travelTime(1.5f)
+missCount(0), gameOver(false), ratingTimer(0.f), noteTime(144.f, 1.5f), currentBeat(0), travelTime(1.5f)
 {
     std::srand((unsigned)std::time(nullptr));
     window.setFramerateLimit(60);
@@ -50,23 +50,6 @@ void Game::run() {
         processEvents();
         update(dt);
         draw();
-    }
-
-    if (gameOver) {
-        while (checkLoop == 1) {
-            if (!win.loadFromFile("assets/WINYAY.png")) {}
-            else {
-                winSprite = new sf::Sprite(win);
-                sf::Vector2u s = win.getSize();
-                winSprite->setScale(sf::Vector2f(1920.f / s.x, 1080.f / s.y));
-            }
-
-            if (music.openFromFile("assets/pipe.ogg")) {
-                music.play();
-                music.setLooping(false);
-                checkLoop = 0;
-            }
-        }
     }
 }
 
@@ -111,7 +94,7 @@ void Game::handleKeyPress(sf::Keyboard::Key key) {
 }
 
 void Game::update(float dt) {
-    if (gameOver) return;
+    //if (gameOver) return;
 
     // Background animation
     bgTimer += dt;
@@ -180,6 +163,15 @@ void Game::draw() {
 
         for (auto& a : arrows) {
             window.draw(a);
+        }
+    }
+
+    if (gameOver && winSprite) {
+        window.draw(*winSprite);
+
+        if (music.openFromFile("assets/pipe.ogg")) {
+            music.play();
+            music.setLooping(false);
         }
     }
 

@@ -47,7 +47,6 @@ private:
     int currentBeat;
     float travelTime;
     float ratingTimer;
-    int checkLoop;
 
     // Methods
     void processEvents();
