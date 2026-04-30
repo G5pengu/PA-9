@@ -2,5 +2,8 @@
 
 int main() {
     Menu m;
-    m.menu(); 
+    while(m.continuePlaying)
+    {
+        m.menu();
+    }
 }

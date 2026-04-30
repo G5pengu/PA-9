@@ -5,8 +5,7 @@
 #include <thread>
 #include <SFML/Network.hpp>
 
-using namespace std;
-using namespace sf;
+
 //If net.cpp complains about port being undifined, ignore it it will still build and work
 const unsigned short port = 1435;
 
@@ -27,7 +26,7 @@ public:
 	void listen();
 
 	// loads and saves the leader board to a CSV
-	void load(string Boardfile = "assets/LeaderBoard.Csv");
+	void load(std::string Boardfile = "assets/LeaderBoard.Csv");
 	void save();
 
 	//gets and sets the leader board
@@ -45,5 +44,5 @@ private:
 	//An array of 10 leaders 
 	Leader leaderboard[10];//ignore the red sqiggles they mean nothing if it still builds
 	// the ip address being used Tests use the loopback address(127.0.0.1) while normal opperations use the broadcast address(255.255.255.255)
-	string ip;
+	std::string ip;
 };

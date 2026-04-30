@@ -2,6 +2,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 #include "Arrow.hpp"
+#include "NoteTimeCalc.hpp"
+#include "SoundManager.hpp"
 #include <vector>
 #include <cstdlib>
 #include <ctime>
@@ -25,11 +27,14 @@ private:
     // Window
     sf::RenderWindow window;
 
-    sf::Music music;
+    SoundManager soundManager;
 
     // Background
     sf::Texture bgTex[2];
     sf::Sprite* bgSprites[2];
+
+    sf::Texture win;
+    sf::Sprite* winSprite;
     int bgFrame;
     float bgTimer;
     float bgFrameRate;
@@ -38,7 +43,10 @@ private:
     std::vector<Arrow> arrows;
     int score;
     int missCount;
-    float spawnTimer;
+    NoteTimeCalc noteTime;
+    sf::Clock songClock;
+    int currentBeat;
+    float travelTime;
     float ratingTimer;
 
     // Methods

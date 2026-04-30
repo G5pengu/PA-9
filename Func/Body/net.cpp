@@ -15,9 +15,9 @@ Network::~Network()
 // UDP Send and Receive the leader board
 void Network::send()
 {
-	IpAddress ip = *IpAddress::resolve(this->ip);
-	UdpSocket sock;
-	Packet pack;
+	sf::IpAddress ip = *sf::IpAddress::resolve(this->ip);
+	sf::UdpSocket sock;
+	sf::Packet pack;
 	for (int i = 0; i < 10; i++)
 	{
 		pack << leaderboard[i].user << leaderboard[i].score;
@@ -25,13 +25,13 @@ void Network::send()
 	}
 
 	sock.send(pack, ip, port);
-	cout << "package sent\n";
+	std::cout << "package sent\n";
 }
 void Network::listen()
 {
-	UdpSocket sock;
-	Packet pack;
-	string x;
+	sf::UdpSocket sock;
+	sf::Packet pack;
+	std::string x;
 	sock.bind(port);
 
 	std::optional<sf::IpAddress> sender;
@@ -54,14 +54,14 @@ void Network::listen()
 }
 
 // loads and saves the leader board to a CSV
-void Network::load(string Boardfile)
+void Network::load(std::string Boardfile)
 {
-	fstream csv;
+	std::fstream csv;
 	csv.open(Boardfile);
 	int i = 0;
 	while (1) {
-		string user;
-		string score;
+		std::string user;
+		std::string score;
 
 		if (!getline(csv, user, ',') || i > 9)
 		{
@@ -82,7 +82,7 @@ void Network::load(string Boardfile)
 }
 void Network::save()
 {
-	fstream csv;
+	std::fstream csv;
 	csv.open("LeaderBoard.Csv");
 	for (int i = 0; i < 10; i++)
 	{
@@ -122,7 +122,7 @@ void Network::print_board()
 {
 	for (int i = 0; i < 10; i++)
 	{
-		cout << leaderboard[i].user << ", " << leaderboard[i].score << endl;
+		std::cout << leaderboard[i].user << ", " << leaderboard[i].score << std::endl;
 	}
 }
 void Network::merge_boards(Leader board[10])
@@ -157,13 +157,13 @@ void Network::cat()// pure debug test case, UwU
 	Network m;
 	m.load("assets/Test.csv");
 
-	cout << "strating listener thread\n";
-	thread listener(&Network::listen, this);
+	std::cout << "strating listener thread\n";
+	std::thread listener(&Network::listen, this);
 
-	sleep(seconds(1));
+	sf::sleep(sf::seconds(1));
 
-	cout << "starting sender tread";
-	thread sender(&Network::send, m);
+	std::cout << "starting sender tread";
+	std::thread sender(&Network::send, m);
 
 	listener.join();
 	sender.join();

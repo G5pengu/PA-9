@@ -6,8 +6,7 @@
 #include "Arrow.hpp"
 #include "Game.hpp"
 #include "SFML/Graphics.hpp"
-using namespace sf;
-using namespace std;
+
 
 class Menu : public Network , public SoundManager , public NoteTimeCalc, public Game
 {
@@ -20,6 +19,7 @@ public:
 	void howto();
 	void canvas_test();
 
-	Font font;
+	sf::Font font;
+	bool continuePlaying;
 
 };
