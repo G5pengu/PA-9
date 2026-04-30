@@ -29,6 +29,15 @@ missCount(0), gameOver(false), ratingTimer(0.f), noteTime(144.f, 1.5f), currentB
         bgSprites[1] = new sf::Sprite(bgTex[1]);
         sf::Vector2u s = bgTex[1].getSize();
         bgSprites[1]->setScale(sf::Vector2f(1920.f / s.x, 1080.f / s.y));
+
+        if (gameOver && winSprite) {
+            window.draw(*winSprite);
+
+            if (music.openFromFile("assets/pipe.ogg")) {
+                music.play();
+                music.setLooping(false);
+            }
+        }
     }
 }
 
@@ -165,15 +174,5 @@ void Game::draw() {
             window.draw(a);
         }
     }
-
-    if (gameOver && winSprite) {
-        window.draw(*winSprite);
-
-        if (music.openFromFile("assets/pipe.ogg")) {
-            music.play();
-            music.setLooping(false);
-        }
-    }
-
     window.display();
 }
