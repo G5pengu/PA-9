@@ -94,6 +94,7 @@ void Game::handleKeyPress(sf::Keyboard::Key key) {
                 ratingTimer = 0.6f;
             }
             else if (result == HitRating::GOOD) {
+
                 score += 250;
                 ratingTimer = 0.6f;
             }
@@ -142,7 +143,7 @@ void Game::update(float dt) {
 
     if (music.getStatus() == sf::Music::Status::Stopped && !gameOver) {
         gameOver = true;
-        // play win music or whatever
+         //play win music or whatever
     }
 }
 
@@ -159,6 +160,10 @@ void Game::detectMisses() {
             missCount++;
             arrows[i].wasGoodHit = true;
             ratingTimer = 0.6f;
+            if (music.openFromFile("assets/IncorrectBuzzer.ogg")) {
+                music.play();
+                music.setLooping(false);
+            }
         }
     }
 }
