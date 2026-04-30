@@ -1,5 +1,6 @@
 #include "../Header/Game.hpp"
 
+// Converts an integer index (0-3) to a Direction enum value
 Direction Game::indexToDir(int i) {
     switch (i) {
     case 0: return Direction::LEFT;
@@ -10,7 +11,7 @@ Direction Game::indexToDir(int i) {
     }
 }
 
-/*spawnTimer(0.f)*/
+// Initializes the window, loads background textures, and sets up the sound manager
 Game::Game() : window(sf::VideoMode({ 1920u, 1080u }), "FNF Arrow Tester"), bgSprites{ nullptr, nullptr }, bgFrame(0), bgTimer(0.f), bgFrameRate(.4f), score(0),
 missCount(0), gameOver(false), ratingTimer(0.f), noteTime(144.f, 1.5f), currentBeat(0), travelTime(1.5f)
 {
@@ -32,30 +33,29 @@ missCount(0), gameOver(false), ratingTimer(0.f), noteTime(144.f, 1.5f), currentB
 
         if (gameOver && winSprite) {
             window.draw(*winSprite);
-
             soundManager.play_sound(1, 50.f);
         }
     }
 }
 
+// Frees dynamically allocated background sprites
 Game::~Game() {
     delete bgSprites[0];
     delete bgSprites[1];
 }
 
 /*
-soundManager
+soundManager audio index reference:
 
 Music:
-
-Index 0: song
+    Index 0: song.ogg
 
 Sounds:
-
-Index 0: Buzzer
-Index 1: Pipe
-
+    Index 0: IncorrectBuzzer.ogg
+    Index 1: pipe.ogg
 */
+
+// Loads audio assets, starts the main song, and runs the main game loop
 void Game::run() {
     soundManager.input_music("assets/song.ogg");
     soundManager.play_music(0, 100, false);
@@ -64,7 +64,6 @@ void Game::run() {
     soundManager.input_sound(temp);
     temp.loadFromFile("assets/pipe.ogg");
     soundManager.input_sound(temp);
-
 
     sf::Clock clock;
     while (window.isOpen() && !gameOver) {
@@ -75,6 +74,7 @@ void Game::run() {
     }
 }
 
+// Polls window and keyboard events each frame
 void Game::processEvents() {
     while (const std::optional event = window.pollEvent()) {
         if (event->is<sf::Event::Closed>()) {
@@ -89,12 +89,13 @@ void Game::processEvents() {
     }
 }
 
+// Maps a key press to a lane direction and registers a hit on the closest matching arrow
 void Game::handleKeyPress(sf::Keyboard::Key key) {
     Direction pressedDir;
     switch (key) {
-    case sf::Keyboard::Key::Left: pressedDir = Direction::LEFT; break;
-    case sf::Keyboard::Key::Down: pressedDir = Direction::DOWN; break;
-    case sf::Keyboard::Key::Up: pressedDir = Direction::UP; break;
+    case sf::Keyboard::Key::Left:  pressedDir = Direction::LEFT;  break;
+    case sf::Keyboard::Key::Down:  pressedDir = Direction::DOWN;  break;
+    case sf::Keyboard::Key::Up:    pressedDir = Direction::UP;    break;
     case sf::Keyboard::Key::Right: pressedDir = Direction::RIGHT; break;
     default: return;
     }
@@ -107,7 +108,6 @@ void Game::handleKeyPress(sf::Keyboard::Key key) {
                 ratingTimer = 0.6f;
             }
             else if (result == HitRating::GOOD) {
-
                 score += 250;
                 ratingTimer = 0.6f;
             }
@@ -116,10 +116,10 @@ void Game::handleKeyPress(sf::Keyboard::Key key) {
     }
 }
 
+// Updates background animation, beat-synced spawning, arrow movement, miss detection, and win/lose conditions
 void Game::update(float dt) {
     //if (gameOver) return;
 
-    // Background animation
     bgTimer += dt;
     if (bgTimer >= bgFrameRate) {
         bgTimer = 0.f;
@@ -156,10 +156,10 @@ void Game::update(float dt) {
 
     if (soundManager.get_music_stream().getStatus() == sf::Music::Status::Stopped && !gameOver) {
         gameOver = true;
-         //play win music or whatever
     }
 }
 
+// Spawns a new arrow in a random lane at the bottom of the screen
 void Game::spawnArrow() {
     int randDir = std::rand() % 4;
     Arrow a(indexToDir(randDir));
@@ -167,8 +167,9 @@ void Game::spawnArrow() {
     arrows.push_back(a);
 }
 
+// Checks for arrows that passed the hit line without being hit and increments missCount
 void Game::detectMisses() {
-    for (int i = 0; i < arrows.size(); i++) {
+    for (int i = 0; i < (int)arrows.size(); i++) {
         if (arrows[i].getPosition().y < HIT_LINE_Y - 50.f && !arrows[i].wasGoodHit) {
             missCount++;
             arrows[i].wasGoodHit = true;
@@ -178,6 +179,7 @@ void Game::detectMisses() {
     }
 }
 
+// Clears the screen, draws the background, hit zones, and active arrows
 void Game::draw() {
     window.clear(sf::Color(30, 30, 30));
 
@@ -194,5 +196,6 @@ void Game::draw() {
             window.draw(a);
         }
     }
+
     window.display();
 }
