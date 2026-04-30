@@ -1,4 +1,4 @@
-#include "SoundManager.hpp"
+#include "../Header/SoundManager.hpp"
 
 
 SoundManager::SoundManager()
@@ -9,8 +9,8 @@ SoundManager::SoundManager()
 void SoundManager::input_sound(const sf::SoundBuffer& soundBufferInput)
 {
 	_SoundBufferList.push_back(soundBufferInput); // soundBufferInput should be confirmed
-	
-	sf::Sound temp(soundBufferInput); // If this fails throws an error
+
+	sf::Sound temp(_SoundBufferList.back());
 
 	_SoundList.push_back(temp);
 }	
@@ -96,7 +96,7 @@ void SoundManager::play_sound(const int& sound_index, const float& volume)
 {
 	std::list<sf::Sound>::iterator list_ptr = _SoundList.begin(); // Need the iterator to cycle through list_ptr
 
-	if (sound_index >= 0; sound_index < _SoundList.size())
+	if (sound_index >= 0 && sound_index < _SoundList.size())
 	{
 		for (int node = 0; node < sound_index; ++node)
 		{
