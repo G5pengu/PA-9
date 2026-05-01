@@ -12,7 +12,7 @@ A rhythm game based on Washington State University's mascot, Butch T. Cougar. In
 ### Instruction
 
 ### Video Demonstration
-Link: [Paste YouTube or video link here]
+Link: https://www.youtube.com/watch?v=ePnnasDACGg
 
 #### AI Usage Disclosure
 
