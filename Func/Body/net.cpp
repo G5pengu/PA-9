@@ -148,7 +148,22 @@ void Network::merge_boards(Leader board[10])
 //Test cases
 void Network::netTest()
 {
+	load("assets/Test2.csv");
+	//ip = "127.0.0.1"; for loop back 
+	Network m;
+	m.load("assets/Test.csv");
 
+	std::cout << "strating listener thread\n";
+	std::thread listener(&Network::listen, this);
+
+	sf::sleep(sf::seconds(1));
+
+	std::cout << "starting sender tread";
+	std::thread sender(&Network::send, m);
+
+	listener.join();
+	sender.join();
+	print_board();
 }
 void Network::cat()// pure debug test case, UwU
 {

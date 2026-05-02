@@ -180,6 +180,12 @@ void Menu::menu()
                     if (testBtn.getGlobalBounds().contains((sf::Vector2f)mousePos))
                     {
                         cout << "test cases\n";
+                        TestCases t;
+                        t.init();
+                        t.net();
+                        t.input();
+                        t.arrowSpawn();
+                        t.windowTest();
                     }
                     if (leaderBtn.getGlobalBounds().contains((sf::Vector2f)mousePos))
                     {

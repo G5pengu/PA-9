@@ -1,6 +1,5 @@
 ﻿#include "../Header/Test.hpp"
 
-
 //Name: Zac Calvert & Sam P.
 //Date: 4/29/2026
 
@@ -8,7 +7,7 @@ using std::vector;
 
 TestCases::TestCases()
 {
-
+    //constructor - does not do anything
 }
 
 //verifies that sprites and fonts can be initialized correctly without opening the render window
@@ -127,7 +126,9 @@ bool TestCases::init()
 //calls a test function that is in "net.cpp"
 void TestCases::net()
 {
+    std::cout << "[NetworkTest] Starting input test...\n";
     netTest();
+    std::cout << "[NetwokTest] finished sucsesfully...\n";
 }
 
 //verifies that sf::Keyboard::isKeyPressed() compiles and returns without crashing.
@@ -223,7 +224,7 @@ bool TestCases::arrowSpawn()
     arrows[3].setPosition({ arrowSpacing * 4.f, spawnY });
 
     // -------------------------------------------------------------------------
-    // TEST 1 — All arrows spawn off screen (below screenHeight)
+    // TEST 1 � All arrows spawn off screen (below screenHeight)
     // -------------------------------------------------------------------------
     for (const auto& arrow : arrows)
     {
@@ -241,7 +242,7 @@ bool TestCases::arrowSpawn()
     }
 
     // -------------------------------------------------------------------------
-    // TEST 2 — All arrows have distinct X positions (no overlap)
+    // TEST 2 � All arrows have distinct X positions (no overlap)
     // -------------------------------------------------------------------------
     for (int i = 0; i < (int)arrows.size(); i++)
     {
@@ -259,7 +260,7 @@ bool TestCases::arrowSpawn()
         std::cout << "[arrowSpawnTest] PASS: All arrows have distinct X positions.\n";
 
     // -------------------------------------------------------------------------
-    // TEST 3 — Arrows are ordered left to right by X position
+    // TEST 3 � Arrows are ordered left to right by X position
     // -------------------------------------------------------------------------
     for (int i = 0; i < (int)arrows.size() - 1; i++)
     {
@@ -273,7 +274,7 @@ bool TestCases::arrowSpawn()
         std::cout << "[arrowSpawnTest] PASS: Arrows ordered left to right.\n";
 
     // -------------------------------------------------------------------------
-    // TEST 4 — Direction enum is correctly assigned
+    // TEST 4 � Direction enum is correctly assigned
     // -------------------------------------------------------------------------
     const std::vector<Direction> expectedDirs =
     {
@@ -297,7 +298,7 @@ bool TestCases::arrowSpawn()
     }
 
     // -------------------------------------------------------------------------
-    // TEST 5 — HitRating initializes to NONE
+    // TEST 5 � HitRating initializes to NONE
     // -------------------------------------------------------------------------
     for (int i = 0; i < (int)arrows.size(); i++)
     {
@@ -325,7 +326,64 @@ bool TestCases::arrowSpawn()
     return all_works;
 }
 
-bool TestCases::fail()
+//Ai was used here "make me a test function that tests open the sfml window"
+bool TestCases::windowTest()
 {
-    return false;
+    cout << "Window Test start....\n";
+
+    bool all_works = true;
+
+    sf::RenderWindow window(sf::VideoMode({ 1920, 1080 }), "SFML TEST");
+
+    if (!window.isOpen())
+    {
+        std::cerr << "[windowTest] FAIL: Window failed to open.\n";
+        return false;
+    }
+    std::cout << "[windowTest] PASS: Window opened successfully.\n";
+
+    if (window.getSize().x != 1920u || window.getSize().y != 1080u)
+    {
+        std::cerr << "[windowTest] FAIL: Window size incorrect. "
+            << "Got: " << window.getSize().x << "x" << window.getSize().y << "\n";
+        all_works = false;
+    }
+    else
+    {
+        std::cout << "[windowTest] PASS: Window size correct (1920x1080).\n";
+    }
+
+    sf::Clock clock;
+
+    while (window.isOpen())
+    {
+        while (auto event = window.pollEvent())
+        {
+            if (event->is<sf::Event::Closed>())
+            {
+                window.close();
+            }
+        }
+
+        if (clock.getElapsedTime().asSeconds() >= 3.f)
+        {
+            window.close();
+        }
+
+        window.clear(sf::Color::Black);
+        window.display();
+    }
+
+    std::cout << "[windowTest] PASS: Window closed cleanly.\n";
+
+    if (all_works)
+    {
+        std::cout << "[windowTest] All window checks passed.\n";
+    }
+    else
+    {
+        std::cerr << "[windowTest] One or more window checks FAILED.\n";
+    }
+
+    return all_works;
 }

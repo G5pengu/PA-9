@@ -5,6 +5,7 @@
 #include "Button.hpp"
 #include "Arrow.hpp"
 #include "Game.hpp"
+#include "Test.hpp"
 #include "SFML/Graphics.hpp"
 
 

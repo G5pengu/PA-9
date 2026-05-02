@@ -26,5 +26,5 @@ public:
 	void net();
 	bool input();
 	bool arrowSpawn();
-	bool fail();
+	bool windowTest();
 };
