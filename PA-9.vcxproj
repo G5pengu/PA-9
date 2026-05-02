@@ -27,6 +27,7 @@
     <ClCompile Include="Func\Body\net.cpp" />
     <ClCompile Include="Func\Body\NoteTimeCalc.cpp" />
     <ClCompile Include="Func\Body\SoundManager.cpp" />
+    <ClCompile Include="TestCases.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Func\Header\Arrow.hpp" />
@@ -36,6 +37,7 @@
     <ClInclude Include="Func\Header\net.hpp" />
     <ClInclude Include="Func\Header\NoteTimeCalc.hpp" />
     <ClInclude Include="Func\Header\SoundManager.hpp" />
+    <ClInclude Include="TestCases.hpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>18.0</VCProjectVersion>
