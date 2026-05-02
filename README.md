@@ -17,5 +17,5 @@ Link: https://www.youtube.com/watch?v=ePnnasDACGg
 #### AI Usage Disclosure
 
 #### Notes
-Full release coming soon!
+Full release coming soon! <br>
 Final rendition of the project is in the merge branch. 
