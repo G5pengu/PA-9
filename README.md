@@ -18,3 +18,4 @@ Link: https://www.youtube.com/watch?v=ePnnasDACGg
 
 #### Notes
 Full release coming soon!
+Final rendition of the project is in the merge branch. 
